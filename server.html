@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Universal Prefab Market</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a href="index.html">← Back</a>
+
+<h1 id="server-name">Server</h1>
+
+<div class="info">
+    Version: 0.0.1<br>
+    Test version - server page is under development.
+</div>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+
+    const server = params.get("server");
+
+    document.getElementById("server-name").textContent = 
+        server ? server : "Unknown server";
+</script>
+
+</body>
+</html>
