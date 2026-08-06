@@ -60,34 +60,46 @@ async function loadData(file)
 }
 
 
+function formatPrice(value)
+{
+    return Number(value).toLocaleString("de-DE");
+}
+
+
 function showData(data)
 {
     let html = "";
 
     html += "<h2>Update: " + data.UpdateDate + "</h2>";
 
-    html += "<ul>";
 
-for (const item of data.Items)
-{
-    html += "<div class='item'>";
-
-    html += "<div>";
-    html += item.Name;
-    html += " | GTN: " + item.GtnPrice;
-    html += " | Craft L1: " + item.CraftLvl1;
-    html += " | Craft L3: " + item.CraftLvl3;
-    html += "</div>";
-
-    if (item.Log)
+    for (const item of data.Items)
     {
-        html += "<pre class='log'>";
-        html += item.Log;
-        html += "</pre>";
+        html += "<div class='item'>";
+
+
+        html += "<div>";
+        html += "<b>" + item.Name + "</b>";
+        html += " | GTN: " + formatPrice(item.GtnPrice);
+        html += " | Craft L1: " + formatPrice(item.CraftLvl1);
+        html += " | Craft L3: " + formatPrice(item.CraftLvl3);
+        html += "</div>";
+
+
+        if (item.Log)
+        {
+            html += "<pre class='log'>";
+            html += item.Log;
+            html += "</pre>";
+        }
+
+
+        html += "<hr>";
+
+        html += "</div>";
     }
 
-    html += "</div>";
-}
+
     document.getElementById("content").innerHTML = html;
 }
 
