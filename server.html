@@ -68,18 +68,26 @@ function showData(data)
 
     html += "<ul>";
 
-    for (const item of data.Items)
+for (const item of data.Items)
+{
+    html += "<div class='item'>";
+
+    html += "<div>";
+    html += item.Name;
+    html += " | GTN: " + item.GtnPrice;
+    html += " | Craft L1: " + item.CraftLvl1;
+    html += " | Craft L3: " + item.CraftLvl3;
+    html += "</div>";
+
+    if (item.Log)
     {
-        html += "<li>";
-        html += item.Name;
-        html += " | GTN: " + item.GtnPrice;
-        html += " | Craft L1: " + item.CraftLvl1;
-        html += " | Craft L3: " + item.CraftLvl3;
-        html += "</li>";
+        html += "<pre class='log'>";
+        html += item.Log;
+        html += "</pre>";
     }
 
-    html += "</ul>";
-
+    html += "</div>";
+}
     document.getElementById("content").innerHTML = html;
 }
 
