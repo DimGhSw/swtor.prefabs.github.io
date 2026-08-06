@@ -5,6 +5,7 @@
     <title>Universal Prefab Market</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <a href="index.html">← Back</a>
@@ -13,16 +14,75 @@
 
 <div class="info">
     Version: 0.0.1<br>
-    Test version - server page is under development.
+    Test version - loading JSON data.
 </div>
 
+<div id="content">
+    Loading...
+</div>
+
+
 <script>
-    const params = new URLSearchParams(window.location.search);
 
-    const server = params.get("server");
+const params = new URLSearchParams(window.location.search);
 
-    document.getElementById("server-name").textContent = 
-        server ? server : "Unknown server";
+const server = params.get("server");
+
+
+document.getElementById("server-name").textContent =
+    server ? server : "Unknown server";
+
+
+if (server)
+{
+    loadData(server + ".json");
+}
+
+
+async function loadData(file)
+{
+    try
+    {
+        const response = await fetch(file);
+
+        if (!response.ok)
+            throw new Error("File not found");
+
+        const data = await response.json();
+
+        showData(data);
+    }
+    catch(error)
+    {
+        document.getElementById("content").innerHTML =
+            "Error loading data: " + error;
+    }
+}
+
+
+function showData(data)
+{
+    let html = "";
+
+    html += "<h2>Update: " + data.UpdateDate + "</h2>";
+
+    html += "<ul>";
+
+    for (const item of data.Items)
+    {
+        html += "<li>";
+        html += item.Name;
+        html += " | GTN: " + item.GtnPrice;
+        html += " | Craft L1: " + item.CraftLvl1;
+        html += " | Craft L3: " + item.CraftLvl3;
+        html += "</li>";
+    }
+
+    html += "</ul>";
+
+    document.getElementById("content").innerHTML = html;
+}
+
 </script>
 
 </body>
